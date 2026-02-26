@@ -42,11 +42,11 @@ export function Home() {
     .slice(0, 5)
 
   return (
-    <div className="space-y-24">
+    <div className="space-y-12 sm:space-y-20">
 
       {/* 📚 Top 5 Populares */}
       <section>
-        <div className="flex items-center justify-between mb-10">
+        <div className="flex items-center justify-between mb-5 sm:mb-8">
           <h2 className="text-2xl font-semibold">
             Top 5 Populares
           </h2>
@@ -59,7 +59,7 @@ export function Home() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-5 lg:gap-8">
           {topRated.map((book) => (
             <BookCard
               key={book.id}

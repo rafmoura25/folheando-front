@@ -42,31 +42,33 @@ export function BookCard({
   const [src, setSrc] = useState(() => resolveImage(imageUrl, title))
 
   return (
-    <Link to={`/livro/${id}`}>
-      <div className="w-52 bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden cursor-pointer">
-        <img
-          src={src}
-          alt={title}
-          onError={() => setSrc("/livroDefault.png")}
-          className="h-72 w-full object-cover"
-        />
+    <Link to={`/livro/${id}`} className="block">
+      <div className="w-full bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden cursor-pointer">
+        <div className="aspect-[2/3] w-full overflow-hidden">
+          <img
+            src={src}
+            alt={title}
+            onError={() => setSrc("/livroDefault.png")}
+            className="w-full h-full object-cover"
+          />
+        </div>
 
-        <div className="p-4 text-center">
-          <h3 className="font-semibold text-sm">{title}</h3>
-          <p className="text-xs text-blue-gray">{author}</p>
+        <div className="p-3 text-center">
+          <h3 className="font-semibold text-xs sm:text-sm line-clamp-2">{title}</h3>
+          <p className="text-xs text-gray-500 mt-0.5 truncate">{author}</p>
 
-          <div className="flex justify-center gap-1 mt-2">
+          <div className="flex justify-center gap-0.5 mt-1.5">
             {Array.from({ length: 5 }).map((_, i) => (
               <span
                 key={i}
-                className={i < rating ? "text-yellow-400" : "text-gray-300"}
+                className={`text-sm ${i < rating ? "text-yellow-400" : "text-gray-300"}`}
               >
                 ★
               </span>
             ))}
           </div>
 
-          <p className="font-bold mt-2">{price}</p>
+          <p className="font-bold text-sm mt-1">{price}</p>
         </div>
       </div>
     </Link>

@@ -47,7 +47,7 @@ export default function AllBooks() {
     ]
 
     return (
-        <div className="max-w-7xl mx-auto py-8 px-4 space-y-8">
+        <div className="space-y-6">
 
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -69,25 +69,25 @@ export default function AllBooks() {
                 </div>
 
                 {/* Controls */}
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-col gap-3">
                     {/* Search */}
                     <input
                         type="text"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         placeholder="Buscar por título ou autor..."
-                        className="border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B1B3A] transition w-full sm:w-64"
+                        className="border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B1B3A] transition w-full"
                     />
 
-                    {/* Sort tabs */}
-                    <div className="flex rounded-xl overflow-hidden border border-gray-200 bg-white self-start">
+                    {/* Sort tabs — horizontal scroll on mobile */}
+                    <div className="flex rounded-xl overflow-x-auto border border-gray-200 bg-white self-start w-full sm:w-auto">
                         {sortOptions.map((opt) => (
                             <button
                                 key={opt.value}
                                 onClick={() => setSort(opt.value)}
-                                className={`px-4 py-2 text-sm font-medium transition whitespace-nowrap ${sort === opt.value
-                                        ? "text-white"
-                                        : "text-gray-600 hover:bg-gray-50"
+                                className={`flex-1 sm:flex-none px-4 py-2.5 text-sm font-medium transition whitespace-nowrap ${sort === opt.value
+                                    ? "text-white"
+                                    : "text-gray-600 hover:bg-gray-50"
                                     }`}
                                 style={sort === opt.value ? { background: "#0B1B3A" } : {}}
                             >
@@ -100,7 +100,7 @@ export default function AllBooks() {
 
             {/* Grid */}
             {loading ? (
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-5 lg:gap-8">
                     {Array.from({ length: 10 }).map((_, i) => (
                         <div
                             key={i}
@@ -120,7 +120,7 @@ export default function AllBooks() {
                     <p className="text-gray-500">Nenhum livro encontrado.</p>
                 </div>
             ) : (
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-5 lg:gap-8">
                     {filtered.map((book) => (
                         <BookCard
                             key={book.id}
