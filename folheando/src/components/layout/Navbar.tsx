@@ -38,18 +38,26 @@ export default function Navbar() {
 
           {user ? (
             <div className="flex items-center gap-4">
-              <span className="text-sm">Olá, {user.name}</span>
+              <span className="text-sm text-gray-300">Olá, {user.name}</span>
               <button
                 onClick={logout}
-                className="bg-red-500 px-4 py-2 rounded-lg hover:bg-red-600"
+                title="Sair"
+                className="flex items-center justify-center w-9 h-9 rounded-full hover:bg-white/10 transition text-gray-300 hover:text-white"
+                aria-label="Sair"
               >
-                Sair
+                {/* logout icon */}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                  <polyline points="16 17 21 12 16 7" />
+                  <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
               </button>
             </div>
           ) : (
             <Link
               to="/login"
-              className="bg-pink-200 text-black px-4 py-2 rounded-lg hover:bg-pink-300"
+              className="px-4 py-2 rounded-lg font-medium text-[#0B1B3A] transition hover:opacity-80"
+              style={{ background: "#FBF0E5" }}
             >
               Login
             </Link>
@@ -80,18 +88,26 @@ export default function Navbar() {
 
           {user ? (
             <>
-              <p>Olá, {user.name}</p>
+              <p className="text-sm text-gray-300">Olá, {user.name}</p>
               <button
                 onClick={logout}
-                className="bg-red-500 px-4 py-2 rounded-lg w-full"
+                title="Sair"
+                className="flex items-center gap-2 text-gray-300 hover:text-white transition py-1"
+                aria-label="Sair"
               >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                  <polyline points="16 17 21 12 16 7" />
+                  <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
                 Sair
               </button>
             </>
           ) : (
             <Link
               to="/login"
-              className="bg-pink-200 text-black px-4 py-2 rounded-lg block text-center"
+              className="px-4 py-2 rounded-lg font-medium text-[#0B1B3A] block text-center transition hover:opacity-80"
+              style={{ background: "#FBF0E5" }}
             >
               Login
             </Link>

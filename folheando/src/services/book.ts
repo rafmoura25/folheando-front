@@ -6,6 +6,7 @@ export interface Book {
   author: string
   description: string
   price: string
+  imageUrl?: string | null
   category: string
   categoryId: string
   averageRating: number
@@ -14,6 +15,7 @@ export interface Book {
     id: string
     rating: number
     comment: string
+    createdAt: string
     user: {
       id: string
       name: string

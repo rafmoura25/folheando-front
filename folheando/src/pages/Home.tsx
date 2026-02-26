@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import { getBooks, getTopRatedBooks, type Book } from "../services/book"
 import { BookCard } from "../components/books/BookCard"
 import { CategoryCard } from "../components/categories/CategoryCard"
@@ -45,9 +46,18 @@ export function Home() {
 
       {/* 📚 Top 5 Populares */}
       <section>
-        <h2 className="text-2xl font-semibold mb-10">
-          Top 5 Populares
-        </h2>
+        <div className="flex items-center justify-between mb-10">
+          <h2 className="text-2xl font-semibold">
+            Top 5 Populares
+          </h2>
+          <Link
+            to="/livros"
+            className="text-sm font-medium hover:opacity-70 transition"
+            style={{ color: "#0B1B3A" }}
+          >
+            Ver todos →
+          </Link>
+        </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
           {topRated.map((book) => (
@@ -56,7 +66,7 @@ export function Home() {
               id={book.id}
               title={book.title}
               author={book.author}
-              image="/livroDefault.png"
+              imageUrl={book.imageUrl}
               price={book.price}
               rating={book.averageRating}
             />
