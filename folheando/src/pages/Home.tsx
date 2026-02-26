@@ -1,51 +1,31 @@
 import { useEffect, useState } from "react"
-import { books as booksMock } from "../data/books"
-import { reviews } from "../data/reviews"
-import { users } from "../data/users"
-import { categories } from "../data/categories"
-import { calculateAverage } from "../utils/calculateAverage"
-import type { Book } from "../types/book"
+import { getBooks, getTopRatedBooks, type Book } from "../services/book"
 import { BookCard } from "../components/books/BookCard"
 import { CategoryCard } from "../components/categories/CategoryCard"
+import { getCategories, type Category } from "../services/categories"
+import { getTopReviewers, type TopUser } from "../services/users"
 
 export function Home() {
   const [books, setBooks] = useState<Book[]>([])
+  const [categories, setCategories] = useState<Category[]>([])
+  const [topUsers, setTopUsers] = useState<TopUser[]>([])
+  const [topRated, setTopRated] = useState<Book[]>([])
 
   useEffect(() => {
-    setTimeout(() => {
-      setBooks(booksMock)
-    }, 300)
+    async function load() {
+      const booksData = await getBooks()
+      const categoriesData = await getCategories()
+      const usersData = await getTopReviewers()
+      const topRatedData = await getTopRatedBooks()
+
+      setBooks(booksData)
+      setCategories(categoriesData)
+      setTopUsers(usersData)
+      setTopRated(topRatedData)
+    }
+
+    load()
   }, [])
-
-  // 🔥 Top 5 Populares (ordenado por média)
-  const booksWithAverage = books.map((book) => {
-    const bookReviews = reviews.filter(
-      (review) => review.bookId === book.id
-    )
-
-    const average = calculateAverage(
-      bookReviews.map((review) => review.rating)
-    )
-
-    return { ...book, average }
-  })
-
-  const topBooks = booksWithAverage
-    .sort((a, b) => b.average - a.average)
-    .slice(0, 5)
-
-  // 👤 Top 3 Avaliadores
-  const usersWithCount = users.map((user) => {
-    const total = reviews.filter(
-      (review) => review.userId === user.id
-    ).length
-
-    return { ...user, totalReviews: total }
-  })
-
-  const topUsers = usersWithCount
-    .sort((a, b) => b.totalReviews - a.totalReviews)
-    .slice(0, 3)
 
   // 📂 Top 5 Categorias
   const categoriesWithCount = categories.map((category) => {
@@ -70,15 +50,15 @@ export function Home() {
         </h2>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
-          {topBooks.map((book) => (
+          {topRated.map((book) => (
             <BookCard
               key={book.id}
               id={book.id}
               title={book.title}
               author={book.author}
-              image={book.image}
+              image="/livroDefault.png"
               price={book.price}
-              rating={book.average}
+              rating={book.averageRating}
             />
           ))}
         </div>
@@ -96,10 +76,8 @@ export function Home() {
               key={user.id}
               className="bg-white p-6 rounded-xl shadow"
             >
-              <p className="font-semibold text-lg">
-                {user.name}
-              </p>
-              <p className="text-sm text-blue-gray">
+              <h3 className="font-semibold">{user.name}</h3>
+              <p className="text-sm text-gray-500">
                 {user.totalReviews} avaliações
               </p>
             </div>
@@ -118,7 +96,7 @@ export function Home() {
             <CategoryCard
               key={category.id}
               name={category.name}
-              image={category.image}
+              image="/dark.png"
             />
           ))}
         </div>

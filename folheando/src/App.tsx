@@ -1,19 +1,19 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { Layout } from "./components/layout/Layout"
+import { Routes, Route } from "react-router-dom"
+import Layout from "./components/layout/Layout"
 import { Home } from "./pages/Home"
-import { BookDetails } from "./pages/BookDetails"
+import BookDetails from "./pages/BookDetails"
+import Login from "./pages/Login"
+import Register from "./pages/Register"
 
-function App() {
+export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="livro/:id" element={<BookDetails />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/livro/:id" element={<BookDetails />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Route>
+    </Routes>
   )
 }
-
-export default App
